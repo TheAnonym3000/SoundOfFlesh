@@ -61,3 +61,26 @@ mandatory = true
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies."${mod_id}"]]
+modId = "pipeorgans"
+mandatory = true
+versionRange = "[0.8.2+1.20.1]"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies."${mod_id}"]]
+modId = "biomancy"
+mandatory = true
+versionRange = "[2.8.19.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies."${mod_id}"]]
+modId = "create"
+mandatory = true
+versionRange = "[6.0.8-289]"
+ordering = "NONE"
+side = "BOTH"
+
+

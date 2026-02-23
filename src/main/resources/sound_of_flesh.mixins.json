@@ -1,17 +1,16 @@
 {
   "required": true,
-  "minVersion": "0.8",
+  "minVersion": "0.8.5",
   "package": "xyz.anonym.sound_of_flesh.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_17",
   "refmap": "sound_of_flesh.refmap.json",
-  "mixins": [
-  ],
-  "client": [
-  ],
   "injectors": {
     "defaultRequire": 1
   },
-  "overwrites": {
-    "requireAnnotations": true
-  }
+  "mixins": [
+    "WindchestMasterBlockMixin"
+  ],
+  "client": [
+  ],
+  "server": [ ]
 }
