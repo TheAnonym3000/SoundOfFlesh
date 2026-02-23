@@ -54,17 +54,6 @@ public abstract class WindchestMasterBlockMixin extends Block implements IWrench
         if (level.isClientSide) { return; }
         int activeFans = 0;
         for (Direction d : Iterate.directions) {
-            if (level.getBlockEntity(masterPos.relative(d)) instanceof EncasedFanBlockEntity fanBE) {
-                BlockState fanState = fanBE.getBlockState();
-                if (fanState.getValue(EncasedFanBlock.FACING) == d.getOpposite() && (fanBE.getSpeed()*d.getAxisDirection().getStep() < 0)) {
-                    activeFans++;
-                }
-            } else if (neighborBlock instanceof LungBlock) {
-                SoundOfFlesh.LOGGER.debug(level.getBlockState(masterPos.relative(d)).getValue(LungBlock.FACING).toString());
-               if (level.getBlockState(masterPos.relative(d)).getValue(LungBlock.FACING) == d.getOpposite()) {
-                   activeFans++;
-               }
-            }
         }
         level.setBlock(masterPos, level.getBlockState(masterPos).setValue(WINDY, activeFans>0), 2);
     }
