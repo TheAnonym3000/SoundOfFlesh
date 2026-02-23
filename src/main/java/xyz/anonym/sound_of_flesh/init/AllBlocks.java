@@ -3,7 +3,6 @@ package xyz.anonym.sound_of_flesh.init;
 import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem;
-import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.finchy.pipeorgans.data.AssetLookup;
 import com.finchy.pipeorgans.data.BlockStateGen;
 import com.finchy.pipeorgans.init.AllTags;
@@ -18,6 +17,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import xyz.anonym.sound_of_flesh.SoundOfFlesh;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlock;
+import xyz.anonym.sound_of_flesh.content.generic.trachea.TracheaBlock;
 import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock;
 import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxExtensionBlock;
 
@@ -31,7 +31,7 @@ public class AllBlocks {
     }
 
 
-    public static final BlockEntry<WindchestMasterBlock> TRACHEA = REGISTRATE.block("trachea", WindchestMasterBlock::new)
+    public static final BlockEntry<TracheaBlock> TRACHEA = REGISTRATE.block("trachea", TracheaBlock::new)
             .initialProperties(ModBlocks.TUBULAR_FLESH_BLOCK::get)
             .properties(p -> p
                     .requiresCorrectToolForDrops()
