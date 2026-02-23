@@ -16,7 +16,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import xyz.anonym.sound_of_flesh.Sound_of_flesh;
+import xyz.anonym.sound_of_flesh.SoundOfFlesh;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlock;
 import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock;
 import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxExtensionBlock;
@@ -24,7 +24,7 @@ import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxExtensionBlock;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 
 public class AllBlocks {
-    private static final CreateRegistrate REGISTRATE = Sound_of_flesh.registrate();
+    private static final CreateRegistrate REGISTRATE = SoundOfFlesh.registrate();
 
     static {
         REGISTRATE.setCreativeTab(AllTabs.MAIN_TAB);

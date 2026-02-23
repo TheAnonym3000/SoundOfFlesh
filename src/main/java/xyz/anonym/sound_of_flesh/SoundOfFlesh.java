@@ -24,8 +24,8 @@ import org.slf4j.Logger;
 import xyz.anonym.sound_of_flesh.init.*;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(Sound_of_flesh.MODID)
-public class Sound_of_flesh {
+@Mod(SoundOfFlesh.MODID)
+public class SoundOfFlesh {
 
     public static final String MODID = "sound_of_flesh";
     public static final Logger LOGGER = LogUtils.getLogger();
@@ -37,7 +37,7 @@ public class Sound_of_flesh {
                             .andThen(TooltipModifier.mapNull(KineticStats.create(item)))
             );
 
-    public Sound_of_flesh() {
+    public SoundOfFlesh() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // Register the commonSetup method for modloading

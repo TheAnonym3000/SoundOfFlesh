@@ -1,8 +1,7 @@
 package xyz.anonym.sound_of_flesh.init;
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
-import xyz.anonym.sound_of_flesh.Sound_of_flesh;
-import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock;
+import xyz.anonym.sound_of_flesh.SoundOfFlesh;
 
 public class AllPartialModels {
     public static final PartialModel
@@ -14,7 +13,7 @@ public class AllPartialModels {
     VOICEBOX_MOUTH_HUGE = block("voicebox/voicebox_huge_mouth");
 
     private static PartialModel block(String path) {
-        return PartialModel.of(Sound_of_flesh.asResource("block/" + path));
+        return PartialModel.of(SoundOfFlesh.asResource("block/" + path));
     }
 
     public static void init() {}

@@ -6,11 +6,11 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import xyz.anonym.sound_of_flesh.Sound_of_flesh;
+import xyz.anonym.sound_of_flesh.SoundOfFlesh;
 
 public class AllSoundEvents {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
-            DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Sound_of_flesh.MODID);
+            DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, SoundOfFlesh.MODID);
 
 
     // declare sounds here
@@ -23,7 +23,7 @@ public class AllSoundEvents {
     VOICEBOX_DEEP = registerSoundEvent("voicebox_deep");
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
-        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Sound_of_flesh.MODID, name)));
+        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(SoundOfFlesh.MODID, name)));
     }
 
     public static void register(IEventBus eventBus) {

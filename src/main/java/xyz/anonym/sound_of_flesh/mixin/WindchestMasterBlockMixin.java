@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import xyz.anonym.sound_of_flesh.Sound_of_flesh;
+import xyz.anonym.sound_of_flesh.SoundOfFlesh;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlock;
 
 import static com.finchy.pipeorgans.content.windchest.WindchestMasterBlock.*;
@@ -60,7 +60,7 @@ public abstract class WindchestMasterBlockMixin extends Block implements IWrench
                     activeFans++;
                 }
             } else if (neighborBlock instanceof LungBlock) {
-                Sound_of_flesh.LOGGER.debug(level.getBlockState(masterPos.relative(d)).getValue(LungBlock.FACING).toString());
+                SoundOfFlesh.LOGGER.debug(level.getBlockState(masterPos.relative(d)).getValue(LungBlock.FACING).toString());
                if (level.getBlockState(masterPos.relative(d)).getValue(LungBlock.FACING) == d.getOpposite()) {
                    activeFans++;
                }

@@ -9,12 +9,12 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.Block;
-import xyz.anonym.sound_of_flesh.Sound_of_flesh;
+import xyz.anonym.sound_of_flesh.SoundOfFlesh;
 import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlockEntity;
 import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxRenderer;
 
 public class AllBlockEntities {
-    private static final CreateRegistrate REGISTRATE = Sound_of_flesh.registrate();
+    private static final CreateRegistrate REGISTRATE = SoundOfFlesh.registrate();
 
 
     public static final BlockEntityEntry<VoiceboxBlockEntity> VOICEBOX_BLOCK_ENTITY = registerPipeBlockEntity(
