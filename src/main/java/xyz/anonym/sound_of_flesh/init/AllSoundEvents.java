@@ -16,11 +16,13 @@ public class AllSoundEvents {
     // declare sounds here
 
     public static final RegistryObject<SoundEvent>
+    VOICEBOX_SUPERSUPERHIGH = registerSoundEvent("voicebox_supersuperhigh"),
     VOICEBOX_SUPERHIGH = registerSoundEvent("voicebox_superhigh"),
     VOICEBOX_HIGH = registerSoundEvent("voicebox_high"),
     VOICEBOX_MEDIUM = registerSoundEvent("voicebox_medium"),
     VOICEBOX_LOW = registerSoundEvent("voicebox_low"),
-    VOICEBOX_DEEP = registerSoundEvent("voicebox_deep");
+    VOICEBOX_DEEP = registerSoundEvent("voicebox_deep"),
+    VOICEBOX_SUPERDEEP = registerSoundEvent("voicebox_superdeep");
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(SoundOfFlesh.MODID, name)));

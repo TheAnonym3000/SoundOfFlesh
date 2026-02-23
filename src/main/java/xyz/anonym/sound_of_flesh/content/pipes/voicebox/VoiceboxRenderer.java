@@ -3,6 +3,7 @@ package xyz.anonym.sound_of_flesh.content.pipes.voicebox;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes.PipeSize;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.datafixers.TypeRewriteRule;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.animation.AnimationTickHolder;
@@ -15,6 +16,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 import xyz.anonym.sound_of_flesh.init.AllPartialModels;
+
+import static xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock.ExpandedWhistleSize.GIANT;
+import static xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock.ExpandedWhistleSize.MICRO;
 
 
 public class VoiceboxRenderer extends SafeBlockEntityRenderer<VoiceboxBlockEntity> {
@@ -32,11 +36,13 @@ public class VoiceboxRenderer extends SafeBlockEntityRenderer<VoiceboxBlockEntit
         EPipeSizes.PipeSize size = blockState.getValue(VoiceboxBlock.SIZE);
 
         PartialModel mouth = switch (size) {
+            case MICRO -> AllPartialModels.VOICEBOX_MOUTH_MICRO;
             case TINY -> AllPartialModels.VOICEBOX_MOUTH_TINY;
             case SMALL -> AllPartialModels.VOICEBOX_MOUTH_SMALL;
             case MEDIUM -> AllPartialModels.VOICEBOX_MOUTH_MEDIUM;
             case LARGE -> AllPartialModels.VOICEBOX_MOUTH_LARGE;
             case HUGE -> AllPartialModels.VOICEBOX_MOUTH_HUGE;
+            case GIANT -> AllPartialModels.VOICEBOX_MOUTH_GIANT;
         };
 
         float offset = be.animation.getValue(partialTicks);
