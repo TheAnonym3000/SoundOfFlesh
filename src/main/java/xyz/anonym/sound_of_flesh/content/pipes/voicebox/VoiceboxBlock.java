@@ -145,11 +145,9 @@ public class VoiceboxBlock extends Block implements IBE<VoiceboxBlockEntity>, IW
                 if (blockState.getValue(VoiceboxExtensionBlock.SHAPE) == VoiceboxExtensionBlock.VoiceboxExtenderShape.SINGLE) {
                     pLevel.setBlock(currentPos,
                             blockState.setValue(VoiceboxExtensionBlock.SHAPE, VoiceboxExtensionBlock.VoiceboxExtenderShape.DOUBLE), 3);
-                    if (soundtype != null) {
-                        float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);
-                        pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
-                        pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
-                    }
+                    float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);
+                    pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
+                    pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
                     return;
                 }
                 currentPos = currentPos.above();
@@ -161,11 +159,9 @@ public class VoiceboxBlock extends Block implements IBE<VoiceboxBlockEntity>, IW
 
             pLevel.setBlock(currentPos, AllBlocks.VOICEBOX_EXTENSION.getDefaultState()
                     .setValue(SIZE, size), 3);
-            if (soundtype != null) {
-                float pPitch = (float) Math.pow(2, -(i * 2 - 1) / 12.0);
-                pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
-                pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
-            }
+            float pPitch = (float) Math.pow(2, -(i * 2 - 1) / 12.0);
+            pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
+            pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
             return;
         }
     }
