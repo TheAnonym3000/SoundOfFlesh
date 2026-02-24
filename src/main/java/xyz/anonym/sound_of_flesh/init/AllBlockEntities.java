@@ -17,23 +17,11 @@ public class AllBlockEntities {
     private static final CreateRegistrate REGISTRATE = SoundOfFlesh.registrate();
 
 
-    public static final BlockEntityEntry<VoiceboxBlockEntity> VOICEBOX_BLOCK_ENTITY = registerPipeBlockEntity(
-            "voicebox_block_entity",
-            VoiceboxBlockEntity::new,
-            AllBlocks.VOICEBOX,
-            () -> VoiceboxRenderer::new);
-
-
-    private static <T extends GenericPipeBlockEntity> BlockEntityEntry<T> registerPipeBlockEntity(
-            String name, BlockEntityBuilder.BlockEntityFactory<T> factory, NonNullSupplier<? extends Block> block,
-            NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<? super T>>> renderer) {
-        return REGISTRATE.blockEntity(name, factory)
-                .validBlock(block)
-                .renderer(renderer)
-                .register();
-    }
-
-
+    public static final BlockEntityEntry<VoiceboxBlockEntity> VOICEBOX_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("expanded_steam_whistle", VoiceboxBlockEntity::new)
+            .validBlocks(AllBlocks.VOICEBOX)
+            .renderer(() -> VoiceboxRenderer::new)
+            .register();
 
     public static void register() {
     }

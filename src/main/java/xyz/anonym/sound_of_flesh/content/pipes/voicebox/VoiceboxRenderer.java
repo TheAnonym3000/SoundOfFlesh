@@ -1,9 +1,6 @@
 package xyz.anonym.sound_of_flesh.content.pipes.voicebox;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes.PipeSize;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.datafixers.TypeRewriteRule;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.animation.AnimationTickHolder;
@@ -17,8 +14,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 import xyz.anonym.sound_of_flesh.init.AllPartialModels;
 
-import static xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock.ExpandedWhistleSize.GIANT;
-import static xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock.ExpandedWhistleSize.MICRO;
+import static xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock.VoiceboxSize.*;
 
 
 public class VoiceboxRenderer extends SafeBlockEntityRenderer<VoiceboxBlockEntity> {
@@ -33,17 +29,15 @@ public class VoiceboxRenderer extends SafeBlockEntityRenderer<VoiceboxBlockEntit
             return;
 
         Direction direction = blockState.getValue(VoiceboxBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(VoiceboxBlock.SIZE);
+        VoiceboxBlock.VoiceboxSize size = blockState.getValue(VoiceboxBlock.SIZE);
 
-        PartialModel mouth = switch (size) {
-            case MICRO -> AllPartialModels.VOICEBOX_MOUTH_MICRO;
-            case TINY -> AllPartialModels.VOICEBOX_MOUTH_TINY;
-            case SMALL -> AllPartialModels.VOICEBOX_MOUTH_SMALL;
-            case MEDIUM -> AllPartialModels.VOICEBOX_MOUTH_MEDIUM;
-            case LARGE -> AllPartialModels.VOICEBOX_MOUTH_LARGE;
-            case HUGE -> AllPartialModels.VOICEBOX_MOUTH_HUGE;
-            case GIANT -> AllPartialModels.VOICEBOX_MOUTH_GIANT;
-        };
+        PartialModel mouth = size == GIANT ? AllPartialModels.VOICEBOX_MOUTH_GIANT
+                : size == HUGE ? AllPartialModels.VOICEBOX_MOUTH_HUGE
+                : size == LARGE ? AllPartialModels.VOICEBOX_MOUTH_LARGE
+                : size == MEDIUM ? AllPartialModels.VOICEBOX_MOUTH_MEDIUM
+                : size == SMALL ? AllPartialModels.VOICEBOX_MOUTH_SMALL
+                : size == TINY ? AllPartialModels.VOICEBOX_MOUTH_TINY
+                : AllPartialModels.VOICEBOX_MOUTH_MICRO;
 
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {

@@ -1,30 +1,156 @@
 package xyz.anonym.sound_of_flesh.content.pipes.voicebox;
 
-import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlockEntity;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+
 import com.simibubi.create.AllSoundEvents;
+import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
+
+
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
+import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
+import com.simibubi.create.foundation.advancement.AllAdvancements;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.utility.CreateLang;
+
+import net.createmod.catnip.animation.LerpedFloat;
+import net.createmod.catnip.animation.LerpedFloat.Chaser;
+import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.DistExecutor;
+import xyz.anonym.sound_of_flesh.CSOSHelper;
 import xyz.anonym.sound_of_flesh.init.AllBlocks;
 
-public class VoiceboxBlockEntity extends DoublePipeBlockEntity {
-    public VoiceboxBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
-        super(type, pos, blockState);
-        baseBlock = AllBlocks.VOICEBOX;
+import java.lang.ref.WeakReference;
+import java.util.List;
+
+public class VoiceboxBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
+
+    public WeakReference<FluidTankBlockEntity> source;
+    public LerpedFloat animation;
+    protected int pitch;
+
+    public VoiceboxBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
+        source = new WeakReference<>(null);
+        animation = LerpedFloat.linear();
+    }
+
+    @Override
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+        registerAwardables(behaviours, AllAdvancements.STEAM_WHISTLE);
+    }
+
+    public void updatePitch() {
+        BlockPos currentPos = worldPosition.above();
+        int newPitch;
+        for (newPitch = 0; newPitch <= 24; newPitch += 2) {
+            BlockState blockState = level.getBlockState(currentPos);
+            if (!AllBlocks.VOICEBOX_EXTENSION.has(blockState))
+                break;
+            if (blockState.getValue(VoiceboxExtensionBlock.SHAPE) == VoiceboxExtensionBlock.VoiceboxExtenderShape.SINGLE) {
+                newPitch++;
+                break;
+            }
+            currentPos = currentPos.above();
+        }
+        if (pitch == newPitch)
+            return;
+        pitch = newPitch;
+
+        notifyUpdate();
+
+        FluidTankBlockEntity tank = getTank();
+        if (tank != null && tank.boiler != null)
+            tank.boiler.checkPipeOrganAdvancement(tank);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!level.isClientSide()) {
+            if (isPowered())
+                award(AllAdvancements.STEAM_WHISTLE);
+            return;
+        }
+
+        FluidTankBlockEntity tank = getTank();
+
+        boolean windchestActive = false;
+        if (net.minecraftforge.fml.ModList.get().isLoaded("pipeorgans")) {
+            Direction facing = WhistleBlock.getAttachedDirection(getBlockState());
+            windchestActive = CSOSHelper.isWindchestActive(
+                    level,
+                    worldPosition,
+                    facing
+            );
+        }
+
+        boolean powered =
+                isPowered()
+                        && (
+                        (tank != null
+                                && tank.boiler.isActive()
+                                && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0))
+                                || windchestActive
+                );
+
+        animation.chase(powered ? 1 : 0, powered ? .5f : .4f, powered ? Chaser.EXP : Chaser.LINEAR);
+        animation.tickChaser();
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> this.tickAudio(getOctave(), powered));
+    }
+
+    @Override
+    protected void write(CompoundTag tag, boolean clientPacket) {
+        tag.putInt("Pitch", pitch);
+        super.write(tag, clientPacket);
+    }
+
+    @Override
+    protected void read(CompoundTag tag, boolean clientPacket) {
+        pitch = tag.getInt("Pitch");
+        super.read(tag, clientPacket);
+    }
+
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        String[] pitches = CreateLang.translateDirect("generic.notes")
+                .getString()
+                .split(";");
+        CreateLang.translate("generic.pitch", pitches[pitch % pitches.length]).forGoggles(tooltip);
+        return true;
+    }
+
+    protected boolean isPowered() {
+        return getBlockState().getOptionalValue(VoiceboxBlock.POWERED)
+                .orElse(false);
+    }
+
+    protected VoiceboxBlock.VoiceboxSize getOctave() {
+        return getBlockState().getOptionalValue(VoiceboxBlock.SIZE)
+                .orElse(VoiceboxBlock.VoiceboxSize.MEDIUM);
     }
 
     @OnlyIn(Dist.CLIENT)
     protected VoiceboxSoundInstance soundInstance;
 
-    @Override
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(EPipeSizes.PipeSize size, boolean powered) {
+    protected void tickAudio(VoiceboxBlock.VoiceboxSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
@@ -42,8 +168,14 @@ public class VoiceboxBlockEntity extends DoublePipeBlockEntity {
             Minecraft.getInstance()
                     .getSoundManager()
                     .play(soundInstance = new VoiceboxSoundInstance(size, worldPosition));
-
-            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
+            level.playSound(
+                    null, // null = all players nearby
+                    worldPosition,
+                    AllSoundEvents.WHISTLE_CHIFF.getMainEvent(),
+                    SoundSource.BLOCKS,
+                    0.1f,
+                    f
+            );
 
             particle = true;
         }
@@ -54,6 +186,38 @@ public class VoiceboxBlockEntity extends DoublePipeBlockEntity {
         if (!particle)
             return;
 
-        createSteamJet(size);
+        Direction facing = getBlockState().getOptionalValue(VoiceboxBlock.FACING)
+                .orElse(Direction.SOUTH);
+        float angle = 180 + AngleHelper.horizontalAngle(facing);
+        Vec3 sizeOffset = VecHelper.rotate(new Vec3(0, -0.4f, 1 / 16f * size.ordinal()), angle, Axis.Y);
+        Vec3 offset = VecHelper.rotate(new Vec3(0, 1, 0.75f), angle, Axis.Y);
+        Vec3 v = offset.scale(.45f)
+                .add(sizeOffset)
+                .add(Vec3.atCenterOf(worldPosition));
+        Vec3 m = offset.subtract(Vec3.atLowerCornerOf(facing.getNormal())
+                .scale(.75f));
+        level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
     }
+
+    public int getPitchId() {
+        return pitch + 100 * getBlockState().getOptionalValue(VoiceboxBlock.SIZE)
+                .orElse(VoiceboxBlock.VoiceboxSize.MEDIUM)
+                .ordinal();
+    }
+
+    public FluidTankBlockEntity getTank() {
+        FluidTankBlockEntity tank = source.get();
+        if (tank == null || tank.isRemoved()) {
+            if (tank != null)
+                source = new WeakReference<>(null);
+            Direction facing = WhistleBlock.getAttachedDirection(getBlockState());
+            BlockEntity be = level.getBlockEntity(worldPosition.relative(facing));
+            if (be instanceof FluidTankBlockEntity tankBe)
+                source = new WeakReference<>(tank = tankBe);
+        }
+        if (tank == null)
+            return null;
+        return tank.getControllerBE();
+    }
+
 }

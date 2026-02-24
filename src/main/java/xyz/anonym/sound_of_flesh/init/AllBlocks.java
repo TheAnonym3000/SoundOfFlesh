@@ -1,27 +1,19 @@
 package xyz.anonym.sound_of_flesh.init;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem;
-import com.finchy.pipeorgans.data.AssetLookup;
-import com.finchy.pipeorgans.data.BlockStateGen;
-import com.finchy.pipeorgans.init.AllTags;
+import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.github.elenterius.biomancy.init.ModBlocks;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.data.SharedProperties;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import com.tterrag.registrate.util.nullness.NonNullFunction;
-import com.tterrag.registrate.util.nullness.NonNullSupplier;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 import xyz.anonym.sound_of_flesh.SoundOfFlesh;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlock;
-import xyz.anonym.sound_of_flesh.content.generic.trachea.TracheaBlock;
 import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock;
-import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxExtensionBlock;
+import xyz.anonym.sound_of_flesh.datagen.AssetLookup;
+import xyz.anonym.sound_of_flesh.datagen.BlockStateGen;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
+import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
 public class AllBlocks {
     private static final CreateRegistrate REGISTRATE = SoundOfFlesh.registrate();
@@ -31,7 +23,7 @@ public class AllBlocks {
     }
 
 
-    public static final BlockEntry<TracheaBlock> TRACHEA = REGISTRATE.block("trachea", TracheaBlock::new)
+    public static final BlockEntry<WindchestMasterBlock> TRACHEA = REGISTRATE.block("trachea", WindchestMasterBlock::new)
             .initialProperties(ModBlocks.TUBULAR_FLESH_BLOCK::get)
             .properties(p -> p
                     .requiresCorrectToolForDrops()
@@ -54,46 +46,27 @@ public class AllBlocks {
             .register();
 
 
-    public static final BlockEntry<VoiceboxBlock> VOICEBOX = registerPipeBlock(
-            "voicebox",
-            VoiceboxBlock::new,
-            ModBlocks.TUBULAR_FLESH_BLOCK::get,
-            GenericPipeBlockItem.StopSize.EIGHT,
-            BlockTags.MINEABLE_WITH_PICKAXE);
+    // Main whistle
+    public static final BlockEntry<VoiceboxBlock> VOICEBOX =
+            REGISTRATE.block("voicebox", VoiceboxBlock::new)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .properties(p -> p.mapColor(MapColor.GOLD))
+                    .transform(pickaxeOnly())
+                    .blockstate(new BlockStateGen.VoiceboxGenerator()::generate)
+                    .item()
+                    .transform(customItemModel())
+                    .register();
 
-    public static final BlockEntry<VoiceboxExtensionBlock> VOICEBOX_EXTENSION = registerExtensionBlock(
-            "voicebox_extension",
-            VoiceboxExtensionBlock::new,
-            ModBlocks.TUBULAR_FLESH_BLOCK::get,
-            BlockTags.MINEABLE_WITH_PICKAXE);
+    // Extension block
+    public static final BlockEntry<VoiceboxBlock> VOICEBOX_EXTENSION =
+            REGISTRATE.block("voicebox_extension", VoiceboxBlock::new)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .properties(p -> p.mapColor(MapColor.GOLD)
+                            .forceSolidOn())
+                    .transform(pickaxeOnly())
+                    .blockstate(BlockStateGen.whistleExtender()::generate) // << important fix
+                    .register();
 
-
-    private static <T extends GenericExtensionBlock<?>> BlockEntry<T> registerExtensionBlock(
-            String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
-            NonNullSupplier<? extends Block> initialPropertiesCopier, TagKey<Block> toolTag) {
-        return REGISTRATE.block(name, factory)
-                .initialProperties(initialPropertiesCopier)
-                .blockstate(new BlockStateGen.PipeExtensionGenerator()::generate)
-                .tag(toolTag)
-                .register();
-    }
-
-
-    private static <T extends GenericPipeBlock> BlockEntry<T> registerPipeBlock(
-            String name,
-            NonNullFunction<BlockBehaviour.Properties, T> factory,
-            NonNullSupplier<? extends Block> initialPropertiesCopier,
-            GenericPipeBlockItem.StopSize stopsize,
-            TagKey<Block> toolTag) {
-        return REGISTRATE.block(name, factory)
-                .initialProperties(initialPropertiesCopier)
-                .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
-                .blockstate(new BlockStateGen.PipeGenerator()::generate)
-                .item((b,p) -> new GenericPipeBlockItem(b, p, stopsize))
-                .transform(customItemModel())
-                .tag(toolTag)
-                .register();
-    }
 
     public static void register() {
     }
