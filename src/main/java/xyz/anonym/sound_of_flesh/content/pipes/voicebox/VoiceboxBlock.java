@@ -40,6 +40,8 @@ import xyz.anonym.sound_of_flesh.init.AllBlockEntities;
 import xyz.anonym.sound_of_flesh.init.AllBlocks;
 import xyz.anonym.sound_of_flesh.init.AllShapes;
 
+import static xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxExtensionBlock.VoiceboxExtenderShape.SINGLE;
+
 public class VoiceboxBlock extends Block implements IBE<VoiceboxBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -47,7 +49,7 @@ public class VoiceboxBlock extends Block implements IBE<VoiceboxBlockEntity>, IW
     public static final BooleanProperty POWERED = WhistleBlock.POWERED;
     public static final EnumProperty<VoiceboxSize> SIZE = EnumProperty.create("size", VoiceboxSize.class);
 
-    public static enum VoiceboxSize implements StringRepresentable {
+    public enum VoiceboxSize implements StringRepresentable {
 
         MICRO, TINY, SMALL, MEDIUM, LARGE, HUGE, GIANT;
 
@@ -142,13 +144,14 @@ public class VoiceboxBlock extends Block implements IBE<VoiceboxBlockEntity>, IW
             SoundEvent hitSound = soundtype.getHitSound();
 
             if (AllBlocks.VOICEBOX_EXTENSION.has(blockState)) {
-                if (blockState.getValue(VoiceboxExtensionBlock.SHAPE) == VoiceboxExtensionBlock.VoiceboxExtenderShape.SINGLE) {
-                    pLevel.setBlock(currentPos,
-                            blockState.setValue(VoiceboxExtensionBlock.SHAPE, VoiceboxExtensionBlock.VoiceboxExtenderShape.DOUBLE), 3);
+                if (blockState.getValue(VoiceboxExtensionBlock.SHAPE) == SINGLE) {
+                    pLevel.setBlock(currentPos, blockState.setValue(VoiceboxExtensionBlock.SHAPE, VoiceboxExtensionBlock.VoiceboxExtenderShape.DOUBLE), 3);
                     float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);
-                    pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
-                    pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
-                    return;
+                    if (soundtype != null) {
+                        pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
+                        pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
+                        return;
+                    }
                 }
                 currentPos = currentPos.above();
                 continue;

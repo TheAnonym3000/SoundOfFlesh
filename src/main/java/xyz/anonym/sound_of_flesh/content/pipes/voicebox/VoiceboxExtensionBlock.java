@@ -26,6 +26,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import xyz.anonym.sound_of_flesh.init.AllBlocks;
 import xyz.anonym.sound_of_flesh.init.AllShapes;
 
@@ -38,11 +39,11 @@ public class VoiceboxExtensionBlock extends Block implements IWrenchable {
             EnumProperty.create("shape", VoiceboxExtenderShape.class);
     public static final EnumProperty<VoiceboxBlock.VoiceboxSize> SIZE = VoiceboxBlock.SIZE;
 
-    public static enum VoiceboxExtenderShape implements StringRepresentable {
+    public enum VoiceboxExtenderShape implements StringRepresentable {
         SINGLE, DOUBLE, DOUBLE_CONNECTED;
 
         @Override
-        public String getSerializedName() {
+        public @NotNull String getSerializedName() {
             return Lang.asId(name());
         }
     }
@@ -52,6 +53,7 @@ public class VoiceboxExtensionBlock extends Block implements IWrenchable {
         registerDefaultState(defaultBlockState().setValue(SHAPE, SINGLE)
                 .setValue(SIZE, VoiceboxBlock.VoiceboxSize.MEDIUM));
     }
+
 
     @Override
     public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
