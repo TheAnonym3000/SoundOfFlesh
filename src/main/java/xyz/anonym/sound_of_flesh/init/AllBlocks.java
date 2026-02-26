@@ -9,6 +9,7 @@ import net.minecraft.world.level.material.MapColor;
 import xyz.anonym.sound_of_flesh.SoundOfFlesh;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlock;
 import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock;
+import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxExtensionBlock;
 import xyz.anonym.sound_of_flesh.datagen.AssetLookup;
 import xyz.anonym.sound_of_flesh.datagen.BlockStateGen;
 
@@ -58,13 +59,13 @@ public class AllBlocks {
                     .register();
 
     // Extension block
-    public static final BlockEntry<VoiceboxBlock> VOICEBOX_EXTENSION =
-            REGISTRATE.block("voicebox_extension", VoiceboxBlock::new)
+    public static final BlockEntry<VoiceboxExtensionBlock> VOICEBOX_EXTENSION =
+            REGISTRATE.block("voicebox_extension", VoiceboxExtensionBlock::new)
                     .initialProperties(SharedProperties::copperMetal)
                     .properties(p -> p.mapColor(MapColor.GOLD)
                             .forceSolidOn())
                     .transform(pickaxeOnly())
-                    .blockstate(BlockStateGen.whistleExtender()::generate) // << important fix
+                    .blockstate(BlockStateGen.whistleExtender()::generate)
                     .register();
 
 
