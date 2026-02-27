@@ -8,6 +8,7 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.world.level.material.MapColor;
 import xyz.anonym.sound_of_flesh.SoundOfFlesh;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlock;
+import xyz.anonym.sound_of_flesh.content.generic.trachea.TracheaBlock;
 import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock;
 import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxExtensionBlock;
 import xyz.anonym.sound_of_flesh.datagen.AssetLookup;
@@ -24,7 +25,7 @@ public class AllBlocks {
     }
 
 
-    public static final BlockEntry<WindchestMasterBlock> TRACHEA = REGISTRATE.block("trachea", WindchestMasterBlock::new)
+    public static final BlockEntry<TracheaBlock> TRACHEA = REGISTRATE.block("trachea", TracheaBlock::new)
             .initialProperties(ModBlocks.TUBULAR_FLESH_BLOCK::get)
             .properties(p -> p
                     .requiresCorrectToolForDrops()
