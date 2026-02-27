@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.Nullable;
 import xyz.anonym.sound_of_flesh.SoundOfFlesh;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlock;
+import xyz.anonym.sound_of_flesh.init.AllBlocks;
 
 public class TracheaBlock extends Block implements IWrenchable {
 
@@ -113,17 +114,14 @@ public class TracheaBlock extends Block implements IWrenchable {
         if (level.isClientSide) { return false; }
         int activeFans = 0;
         for (Direction d : Iterate.directions) {
-            SoundOfFlesh.LOGGER.debug(String.format("Updating master windy for fan %d", d));
             if (level.getBlockEntity(masterPos.relative(d)) instanceof EncasedFanBlockEntity fanBE) {
                 BlockState fanState = fanBE.getBlockState();
                 if (fanState.getValue(EncasedFanBlock.FACING) == d.getOpposite() && (fanBE.getSpeed()*d.getAxisDirection().getStep() < 0)) {
                     activeFans++;
-                    SoundOfFlesh.LOGGER.debug(String.valueOf(activeFans));
                 }
-            } else if (level.getBlockState(masterPos.relative(d)).getBlock() instanceof LungBlock) {
-                if (level.getBlockState(masterPos.relative(d)).getValue(FACING) == d.getOpposite()) {
+            } else if (level.getBlockState(masterPos.relative(d)).getBlock() == AllBlocks.LUNG_BLOCK.get()) {
+                if (level.getBlockState(masterPos.relative(d)).getValue(LungBlock.FACING) == d) {
                     activeFans++;
-                    SoundOfFlesh.LOGGER.debug(String.valueOf(activeFans));
                 }
             }
         }
