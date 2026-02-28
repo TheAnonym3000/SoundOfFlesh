@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,powered=false": {
+      "model": "sound_of_flesh:block/trachea/trachea",
+      "y": 90
+    },
+    "facing=east,powered=true": {
+      "model": "sound_of_flesh:block/trachea/trachea_powered",
+      "y": 90
+    },
+    "facing=north,powered=false": {
+      "model": "sound_of_flesh:block/trachea/trachea"
+    },
+    "facing=north,powered=true": {
+      "model": "sound_of_flesh:block/trachea/trachea_powered"
+    },
+    "facing=south,powered=false": {
+      "model": "sound_of_flesh:block/trachea/trachea",
+      "y": 180
+    },
+    "facing=south,powered=true": {
+      "model": "sound_of_flesh:block/trachea/trachea_powered",
+      "y": 180
+    },
+    "facing=west,powered=false": {
+      "model": "sound_of_flesh:block/trachea/trachea",
+      "y": 270
+    },
+    "facing=west,powered=true": {
+      "model": "sound_of_flesh:block/trachea/trachea_powered",
+      "y": 270
+    }
+  }
+}

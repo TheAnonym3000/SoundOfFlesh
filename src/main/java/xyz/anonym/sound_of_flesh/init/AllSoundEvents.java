@@ -16,7 +16,7 @@ public class AllSoundEvents {
     // declare sounds here
 
     public static final RegistryObject<SoundEvent>
-    VOICEBOX_SUPERSUPERHIGH = registerSoundEvent("voicebox_supersuperhigh"),
+    VOICEBOX_SUPERDUPERHIGH = registerSoundEvent("voicebox_superduperhigh"),
     VOICEBOX_SUPERHIGH = registerSoundEvent("voicebox_superhigh"),
     VOICEBOX_HIGH = registerSoundEvent("voicebox_high"),
     VOICEBOX_MEDIUM = registerSoundEvent("voicebox_medium"),

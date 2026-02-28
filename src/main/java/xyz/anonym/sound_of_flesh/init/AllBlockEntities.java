@@ -18,7 +18,7 @@ public class AllBlockEntities {
 
 
     public static final BlockEntityEntry<VoiceboxBlockEntity> VOICEBOX_BLOCK_ENTITY = REGISTRATE
-            .blockEntity("expanded_steam_whistle", VoiceboxBlockEntity::new)
+            .blockEntity("voicebox", VoiceboxBlockEntity::new)
             .validBlocks(AllBlocks.VOICEBOX)
             .renderer(() -> VoiceboxRenderer::new)
             .register();

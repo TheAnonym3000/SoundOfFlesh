@@ -17,14 +17,16 @@ public class VoiceboxSoundInstance extends AbstractTickableSoundInstance {
     private final VoiceboxBlock.VoiceboxSize size;
 
     public VoiceboxSoundInstance(VoiceboxBlock.VoiceboxSize size, BlockPos worldPosition) {
-        super((size == TINY ? VOICEBOX_SUPERHIGH
+        super((
+                  size == MICRO ? VOICEBOX_SUPERDUPERHIGH
+                : size == TINY ? VOICEBOX_SUPERHIGH
                 : size == SMALL ? VOICEBOX_HIGH
                 : size == MEDIUM ? VOICEBOX_MEDIUM
-                : size == LARGE ? VOICEBOX_LOW :
-                VOICEBOX_DEEP)
+                : size == LARGE ? VOICEBOX_LOW
+                : size == HUGE ? VOICEBOX_DEEP
+                : VOICEBOX_SUPERDEEP)
                 .get(), SoundSource.RECORDS, SoundInstance.createUnseededRandom());
 
-        //TODO the .get could cause issues
         this.size = size;
         looping = true;
         active = true;
