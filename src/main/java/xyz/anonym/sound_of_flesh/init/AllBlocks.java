@@ -44,6 +44,12 @@ public class AllBlocks {
                     .noOcclusion())
             .lang("Lung Block")
             .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .item()
+            .model((ctx, prov) ->
+                prov.withExistingParent(
+                    ctx.getName(),
+                    prov.modLoc("item/lung_block")))
+            .build()
             .register();
 
 
