@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -17,14 +18,14 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import xyz.anonym.sound_of_flesh.SoundOfFlesh;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlock;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlockEntity;
-import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlockModel;
 import xyz.anonym.sound_of_flesh.init.AllBlockEntities;
-import xyz.anonym.sound_of_flesh.init.AllBlocks;
+import xyz.anonym.sound_of_flesh.init.AllShapes;
 
 public class TracheaBlock extends Block implements IWrenchable, EntityBlock {
 
@@ -153,7 +154,12 @@ public class TracheaBlock extends Block implements IWrenchable, EntityBlock {
 
     @Override
     public @NotNull RenderShape getRenderShape(BlockState state) {
-        return RenderShape.ENTITYBLOCK_ANIMATED;
+        return RenderShape.INVISIBLE;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return AllShapes.TRACHEA_SHAPE.get(state.getValue(FACING));
     }
 
     @Override
@@ -171,7 +177,6 @@ public class TracheaBlock extends Block implements IWrenchable, EntityBlock {
             tracheaBE.triggerAnim(controllerName, "powered");
         }
         if (otherBe instanceof LungBlockEntity lungBE) {
-            SoundOfFlesh.LOGGER.info("Lung block triggered!" + controllerName);
             lungBE.triggerAnim(controllerName, "breathe");
         }
     }
@@ -186,7 +191,6 @@ public class TracheaBlock extends Block implements IWrenchable, EntityBlock {
             tracheaBE.stopTriggeredAnimation(controllerName, "powered");
         }
         if (otherBe instanceof LungBlockEntity lungBE) {
-            SoundOfFlesh.LOGGER.info("Stopping Lung " + controllerName);
             lungBE.stopTriggeredAnimation(controllerName, "breathe");
         }
     }

@@ -51,6 +51,8 @@ public class SoundOfFlesh {
         AllBlocks.register();
         AllBlockEntities.register();
         AllSoundEvents.register(modEventBus);
+        AllItems.ITEMS.register(modEventBus);
+        AllItems.register();
         AllTabs.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in

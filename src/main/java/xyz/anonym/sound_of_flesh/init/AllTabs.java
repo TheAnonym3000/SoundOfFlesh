@@ -12,7 +12,7 @@ public class AllTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, SoundOfFlesh.MODID);
     public static final RegistryObject<CreativeModeTab> MAIN_TAB = CREATIVE_MODE_TABS.register("main_tab", () -> CreativeModeTab.builder().icon(() -> new ItemStack(AllBlocks.VOICEBOX.get())).displayItems((parameters, output) -> {
          output.accept(AllBlocks.TRACHEA.asItem());
-         output.accept(AllBlocks.LUNG_BLOCK.asItem());
+         output.accept(AllItems.LUNG_BLOCK.get().asItem());
          output.accept(AllBlocks.VOICEBOX.asItem());
     }).build());
 

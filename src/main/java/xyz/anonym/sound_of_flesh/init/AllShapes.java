@@ -12,6 +12,8 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import java.util.function.BiFunction;
+
 
 public class AllShapes {
 
@@ -70,6 +72,15 @@ public class AllShapes {
 
                     ;
 
+    public static final VoxelShaper LUNG_SHAPE =
+            shape(1, 7, 2, 6, 11, 11)
+                    .add(10, 7, 2,15, 11, 11)
+                    .add(7, 8, 9, 9, 10 ,16)
+                    .forHorizontal(NORTH);
+
+    public static final VoxelShaper TRACHEA_SHAPE =
+            shape(7, 8, 0, 9, 10, 16)
+                    .forDirectional(NORTH);
 
 
     private static Builder shape(VoxelShape shape) {
@@ -112,6 +123,14 @@ public class AllShapes {
 
         public VoxelShaper forHorizontal(Direction direction) {
             return VoxelShaper.forHorizontal(build(), direction);
+        }
+
+        public VoxelShaper build(BiFunction<VoxelShape, Direction, VoxelShaper> factory, Direction direction) {
+            return factory.apply(shape, direction);
+        }
+
+        public VoxelShaper forDirectional(Direction direction) {
+            return build(VoxelShaper::forDirectional, direction);
         }
 
     }
