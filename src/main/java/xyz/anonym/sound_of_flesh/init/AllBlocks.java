@@ -21,7 +21,7 @@ public class AllBlocks {
     private static final CreateRegistrate REGISTRATE = SoundOfFlesh.registrate();
 
     static {
-        REGISTRATE.setCreativeTab(AllTabs.MAIN_TAB);
+        REGISTRATE.setCreativeTab(AllTabs.MAIN);
     }
 
 
@@ -42,7 +42,7 @@ public class AllBlocks {
                     .requiresCorrectToolForDrops()
                     .noOcclusion())
             .lang("Lung Block")
-            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+          //  .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
             .item()
             .transform(customItemModel())
             .register();
