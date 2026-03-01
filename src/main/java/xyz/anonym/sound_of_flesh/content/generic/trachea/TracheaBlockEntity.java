@@ -1,7 +1,6 @@
-package xyz.anonym.sound_of_flesh.content.generic.lung;
+package xyz.anonym.sound_of_flesh.content.generic.trachea;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -14,21 +13,22 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import xyz.anonym.sound_of_flesh.init.AllBlockEntities;
 
-public class LungBlockEntity extends BlockEntity implements GeoBlockEntity {
+public class TracheaBlockEntity extends BlockEntity implements GeoBlockEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public LungBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(AllBlockEntities.LUNG_BLOCK_ENTITY.get(), pos, state);
+    public TracheaBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(AllBlockEntities.TRACHEA_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(
                 new AnimationController<>(this, "controller", state -> PlayState.STOP)
-                        .triggerableAnim("breathe",
-                                RawAnimation.begin().thenPlay("misc.idle"))
+                        .triggerableAnim("powered",
+                                RawAnimation.begin().thenPlay("misc.powered"))
         );
     }
+
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;

@@ -3,7 +3,7 @@
 	"animations": {
 		"misc.idle": {
 			"loop": true,
-			"animation_length": 2,
+			"animation_length": 5.75,
 			"bones": {
 				"bone": {
 					"scale": {

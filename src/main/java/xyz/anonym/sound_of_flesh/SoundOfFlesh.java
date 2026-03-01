@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -21,6 +22,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlockEntity;
+import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlockEntityRenderer;
 import xyz.anonym.sound_of_flesh.init.*;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -55,6 +58,11 @@ public class SoundOfFlesh {
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+    @SubscribeEvent
+    public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(AllBlockEntities.LUNG_BLOCK_ENTITY.get(), LungBlockEntityRenderer::new);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

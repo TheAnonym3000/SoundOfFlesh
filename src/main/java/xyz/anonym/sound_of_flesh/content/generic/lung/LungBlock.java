@@ -14,6 +14,9 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.anonym.sound_of_flesh.SoundOfFlesh;
+import xyz.anonym.sound_of_flesh.content.generic.trachea.TracheaBlock;
+import xyz.anonym.sound_of_flesh.content.generic.trachea.TracheaBlockEntity;
 import xyz.anonym.sound_of_flesh.init.AllBlockEntities;
 
 public class LungBlock extends Block implements EntityBlock {
@@ -25,6 +28,7 @@ public class LungBlock extends Block implements EntityBlock {
                 this.stateDefinition.any().setValue(FACING, Direction.NORTH)
         );
     }
+
 
     @Override
     public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
@@ -44,8 +48,7 @@ public class LungBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-                                boolean isMoving) {
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         worldIn.updateNeighborsAt(fromPos, this);
     }
 
@@ -56,6 +59,6 @@ public class LungBlock extends Block implements EntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new AllBlockEntities.LUNG_BLOCK_ENTITY(pos, state);
+        return AllBlockEntities.LUNG_BLOCK_ENTITY.get().create(pos, state);
     }
 }
