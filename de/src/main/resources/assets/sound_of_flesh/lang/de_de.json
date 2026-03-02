@@ -1,7 +1,7 @@
 {
   "sound_of_flesh.creativetab.main": "Sound of Flesh",
-  "block.sound_of_flesh.voicebox": "Voicebox",
-  "block.sound_of_flesh.lung_block": "Lung Block",
-  "block.sound_of_flesh.trachea": "Trachea",
-  "block.sound_of_flesh.voicebox_extension": "Voicebox Extension"
+  "block.sound_of_flesh.voicebox": "Kehlkopf",
+  "block.sound_of_flesh.lung_block": "Lungenblock",
+  "block.sound_of_flesh.trachea": "Luftröhre",
+  "block.sound_of_flesh.voicebox_extension": "Kehlkopf-Erweiterung"
 }
