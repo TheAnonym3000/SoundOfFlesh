@@ -299,6 +299,8 @@
     "facing=west,powered=true,size=tiny,wall=true": {
       "model": "sound_of_flesh:block/voicebox/voicebox_tiny_wall_powered",
       "y": 90
+    "": {
+      "model": "sound_of_flesh:block/voicebox"
     }
   }
 }
