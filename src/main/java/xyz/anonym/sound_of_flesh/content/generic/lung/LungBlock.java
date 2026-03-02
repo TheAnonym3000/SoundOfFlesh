@@ -13,15 +13,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import xyz.anonym.sound_of_flesh.SoundOfFlesh;
-import xyz.anonym.sound_of_flesh.content.generic.trachea.TracheaBlock;
-import xyz.anonym.sound_of_flesh.content.generic.trachea.TracheaBlockEntity;
 import xyz.anonym.sound_of_flesh.init.AllBlockEntities;
 import xyz.anonym.sound_of_flesh.init.AllShapes;
 
@@ -55,7 +50,7 @@ public class LungBlock extends Block implements EntityBlock {
 
     @Override
     public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-        worldIn.updateNeighborsAt(fromPos, this);
+//        worldIn.updateNeighborsAt(fromPos, this);
     }
 
     @Override

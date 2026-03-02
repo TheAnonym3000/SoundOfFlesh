@@ -1,10 +1,7 @@
 package xyz.anonym.sound_of_flesh.init;
 
-import dev.engine_room.flywheel.lib.model.baked.PartialModel;
-import xyz.anonym.sound_of_flesh.SoundOfFlesh;
-import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxExtensionBlock;
-
 public class AllPartialModels {
+    /*
     public static final PartialModel
     VOICEBOX_MOUTH_MICRO = block("voicebox/voicebox_micro_mouth"),
     VOICEBOX_MOUTH_TINY = block("voicebox/voicebox_tiny_mouth"),
@@ -19,4 +16,5 @@ public class AllPartialModels {
     }
 
     public static void init() {}
+    */
 }
