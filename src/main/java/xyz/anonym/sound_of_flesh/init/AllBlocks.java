@@ -3,17 +3,16 @@ package xyz.anonym.sound_of_flesh.init;
 import com.github.elenterius.biomancy.init.ModBlocks;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
+import com.tterrag.registrate.builders.ItemBuilder;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
+import com.tterrag.registrate.util.nullness.NonNullFunction;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.material.MapColor;
 import xyz.anonym.sound_of_flesh.SoundOfFlesh;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlock;
 import xyz.anonym.sound_of_flesh.content.generic.trachea.TracheaBlock;
 import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock;
 import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxExtensionBlock;
-import xyz.anonym.sound_of_flesh.datagen.AssetLookup;
-import xyz.anonym.sound_of_flesh.datagen.BlockStateGen;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
@@ -32,7 +31,6 @@ public class AllBlocks {
                     .requiresCorrectToolForDrops()
                     .noOcclusion())
             .lang("Trachea")
-            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
             .item()
             .transform(customItemModel())
             .register();
@@ -43,13 +41,8 @@ public class AllBlocks {
                     .requiresCorrectToolForDrops()
                     .noOcclusion())
             .lang("Lung Block")
-            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
             .item()
-            .model((ctx, prov) ->
-                prov.withExistingParent(
-                    ctx.getName(),
-                    prov.modLoc("item/lung_block")))
-            .build()
+            .transform(customItemModel())
             .register();
 
 
@@ -59,7 +52,7 @@ public class AllBlocks {
                     .initialProperties(SharedProperties::copperMetal)
                     .properties(p -> p.mapColor(MapColor.GOLD))
                     .transform(pickaxeOnly())
-                    .blockstate(new BlockStateGen.VoiceboxGenerator()::generate)
+                    //.blockstate(new BlockStateGen.VoiceboxGenerator()::generate)
                     .item()
                     .transform(customItemModel())
                     .register();
@@ -71,10 +64,15 @@ public class AllBlocks {
                     .properties(p -> p.mapColor(MapColor.GOLD)
                             .forceSolidOn())
                     .transform(pickaxeOnly())
-                    .blockstate(BlockStateGen.whistleExtender()::generate)
+                    //.blockstate(BlockStateGen.whistleExtender()::generate)
                     .register();
 
 
     public static void register() {
+    }
+
+    public static <I extends BlockItem, P> NonNullFunction<ItemBuilder<I, P>, P>  ex() {
+        return b -> b.model(com.simibubi.create.foundation.data.AssetLookup::customItemModel)
+                .build();
     }
 }

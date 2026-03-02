@@ -1,10 +1,10 @@
 {
 	"format_version": "1.21.11",
-	"credit": "",
+	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "sound_of_flesh:item/lung_block/lung_block",
-		"particle": "sound_of_flesh:item/lung_block/lung_block"
+		"0": "block/lung_block",
+		"particle": "block/lung_block"
 	},
 	"elements": [
 		{
@@ -49,7 +49,7 @@
 		{
 			"from": [1, 7, 3],
 			"to": [6, 11, 12],
-			"rotation": {"x": 0, "y": 0, "z": -180, "origin": [8, 9, 8]},
+			"rotation": {"x": 0, "y": 0, "z": 0, "origin": [8, 9, 8]},
 			"faces": {
 				"north": {"uv": [4.5, 4.5, 7, 6.5], "texture": "#0"},
 				"east": {"uv": [0, 4.5, 4.5, 6.5], "texture": "#0"},
@@ -62,7 +62,7 @@
 		{
 			"from": [1, 7, 3],
 			"to": [6, 11, 12],
-			"rotation": {"x": 0, "y": 0, "z": 0, "origin": [8, 9, 8]},
+			"rotation": {"x": 0, "y": 0, "z": -180, "origin": [8, 9, 8]},
 			"faces": {
 				"north": {"uv": [4.5, 4.5, 7, 6.5], "texture": "#0"},
 				"east": {"uv": [0, 4.5, 4.5, 6.5], "texture": "#0"},
@@ -73,16 +73,40 @@
 			}
 		}
 	],
-	"display": {},
-	"groups": [
-		0,
-		1,
-		2,
-		{
-			"name": "bone",
-			"origin": [8, 8, 7],
-			"color": 0,
-			"children": [3, 4]
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [-20, 0, 0],
+			"translation": [0, -0.5, 0],
+			"scale": [0.68, 0.68, 0.68]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [-20, 0, 0],
+			"translation": [0, -0.5, 0],
+			"scale": [0.68, 0.68, 0.68]
+		},
+		"firstperson_righthand": {
+			"rotation": [-90, 0, 0],
+			"translation": [2.25, 0, 0],
+			"scale": [0.79, 0.79, 0.79]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-90, 0, 0],
+			"translation": [2.25, 0, 0],
+			"scale": [0.79, 0.79, 0.79]
+		},
+		"gui": {
+			"rotation": [-90, 0, 0],
+			"translation": [0, -1.25, 0]
+		},
+		"head": {
+			"rotation": [-90, 0, 0],
+			"translation": [0, -14, 0]
+		},
+		"fixed": {
+			"rotation": [-90, 0, 0]
+		},
+		"on_shelf": {
+			"rotation": [-90, 0, 0]
 		}
-	]
+	}
 }

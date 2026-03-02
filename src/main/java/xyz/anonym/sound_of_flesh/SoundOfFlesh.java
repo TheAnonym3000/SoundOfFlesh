@@ -22,7 +22,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
-import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlockEntity;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlockEntityRenderer;
 import xyz.anonym.sound_of_flesh.init.*;
 
@@ -93,4 +92,5 @@ public class SoundOfFlesh {
 
         }
     }
+
 }
