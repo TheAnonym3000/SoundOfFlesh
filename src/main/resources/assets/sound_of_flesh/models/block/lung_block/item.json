@@ -3,8 +3,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "block/lung_block",
-		"particle": "block/lung_block"
+		"0": "sound_of_flesh:block/lung_block",
+		"particle": "sound_of_flesh:block/lung_block"
 	},
 	"elements": [
 		{

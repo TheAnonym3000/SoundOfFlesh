@@ -76,7 +76,7 @@ minecraft {
         configureEach {
             workingDirectory project.file('run')
 
-            jvmArg "-XX:+AllowEnhancedClassRedefinition"
+            //jvmArg "-XX:+AllowEnhancedClassRedefinition" <- very bad. making my game crash like crazy
             // Recommended logging data for a userdev environment
             // The markers can be added/remove as needed separated by commas.
             // "SCAN": For mods scan.

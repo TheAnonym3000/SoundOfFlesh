@@ -1,5 +1,7 @@
 package xyz.anonym.sound_of_flesh.content.pipes.voicebox;
 
+import com.finchy.pipeorgans.content.windchest.WindchestBlock;
+import com.github.elenterius.biomancy.init.ModSoundEvents;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
@@ -36,10 +38,12 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import xyz.anonym.sound_of_flesh.content.generic.trachea.TracheaBlock;
 import xyz.anonym.sound_of_flesh.init.AllBlockEntities;
 import xyz.anonym.sound_of_flesh.init.AllBlocks;
 import xyz.anonym.sound_of_flesh.init.AllShapes;
 
+import static com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock.getAttachedDirection;
 import static xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxExtensionBlock.VoiceboxExtenderShape.SINGLE;
 
 public class VoiceboxBlock extends Block implements IBE<VoiceboxBlockEntity>, IWrenchable {
@@ -75,13 +79,11 @@ public class VoiceboxBlock extends Block implements IBE<VoiceboxBlockEntity>, IW
 
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        Direction facing = WhistleBlock.getAttachedDirection(pState);
-        BlockState attached = pLevel.getBlockState(pPos.relative(facing));
+        BlockState attachedState = pLevel.getBlockState(pPos.relative(getAttachedDirection(pState)));
 
-        if (attached.getBlock().getClass().getName().equals("com.finchy.pipeorgans.content.windchest.WindchestBlock"))
-            return true;
-
-        return FluidTankBlock.isTank(pLevel.getBlockState(pPos.relative(WhistleBlock.getAttachedDirection(pState))));
+        return (FluidTankBlock.isTank(attachedState)
+                || attachedState.getBlock() instanceof WindchestBlock
+                ); //Or whatever you want the windchest to be
     }
 
     @Override
@@ -140,16 +142,14 @@ public class VoiceboxBlock extends Block implements IBE<VoiceboxBlockEntity>, IW
         for (int i = 1; i <= 6; i++) {
             BlockState blockState = pLevel.getBlockState(currentPos);
             float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
-            SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.value();
-            SoundEvent hitSound = soundtype.getHitSound();
+            SoundEvent growSound = ModSoundEvents.FLESH_BLOCK_PLACE.get();
 
             if (AllBlocks.VOICEBOX_EXTENSION.has(blockState)) {
                 if (blockState.getValue(VoiceboxExtensionBlock.SHAPE) == SINGLE) {
                     pLevel.setBlock(currentPos, blockState.setValue(VoiceboxExtensionBlock.SHAPE, VoiceboxExtensionBlock.VoiceboxExtenderShape.DOUBLE), 3);
                     float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);
                     if (soundtype != null) {
-                        pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
-                        pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
+                       pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
                         return;
                     }
                 }
@@ -164,7 +164,6 @@ public class VoiceboxBlock extends Block implements IBE<VoiceboxBlockEntity>, IW
                     .setValue(SIZE, size), 3);
             float pPitch = (float) Math.pow(2, -(i * 2 - 1) / 12.0);
             pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
-            pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
             return;
         }
     }

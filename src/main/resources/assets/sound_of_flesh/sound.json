@@ -1,0 +1,65 @@
+{
+  "voicebox_superduperhigh": {
+    "subtitles": "sounds.sound_of_flesh.voicebox_superduperhigh",
+    "sounds": [
+      {
+        "name": "sound_of_flesh:voicebox_superduperhigh",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+    "voicebox_superhigh": {
+    "subtitles": "sounds.sound_of_flesh.voicebox_superhigh",
+    "sounds": [
+      {
+        "name": "sound_of_flesh:voicebox_superhigh",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+    "voicebox_high": {
+    "subtitles": "sounds.sound_of_flesh.voicebox_high",
+    "sounds": [
+      {
+        "name": "sound_of_flesh:voicebox_high",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+    "voicebox_medium": {
+    "subtitles": "sounds.sound_of_flesh.voicebox_medium",
+    "sounds": [
+      {
+        "name": "sound_of_flesh:voicebox_medium",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+    "voicebox_low": {
+    "subtitles": "sounds.sound_of_flesh.voicebox_low",
+    "sounds": [
+      {
+        "name": "sound_of_flesh:voicebox_low",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+    "voicebox_deep": {
+    "subtitles": "sounds.sound_of_flesh.voicebox_deep",
+    "sounds": [
+      {
+        "name": "sound_of_flesh:voicebox_deep",
+        "attenuation_distance": 64
+      }
+    ]
+  },
+    "voicebox_superdeep": {
+    "subtitles": "sounds.sound_of_flesh.voicebox_superdeep",
+    "sounds": [
+      {
+        "name": "sound_of_flesh:voicebox_superdeep",
+        "attenuation_distance": 64
+      }
+    ]
+  }
+}
