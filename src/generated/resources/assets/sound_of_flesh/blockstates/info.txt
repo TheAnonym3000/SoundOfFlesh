@@ -1,0 +1,4 @@
+I just copy/pasted blockstates from CSOS to get some models in game
+because I can't run datagen until they're ALL done
+
+So please don't forget to delete/make sure these files are overwritten when you run datagen the first time

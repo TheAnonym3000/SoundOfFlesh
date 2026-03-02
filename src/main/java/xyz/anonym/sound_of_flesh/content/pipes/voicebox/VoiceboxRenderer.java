@@ -24,6 +24,10 @@ public class VoiceboxRenderer extends SafeBlockEntityRenderer<VoiceboxBlockEntit
     @Override
     protected void renderSafe(VoiceboxBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
 
+        //This file can probably be removed but just haven't yet
+
+        //MJ says he doesn't want a mouth on the voicebox pipe
+/*
         BlockState blockState = be.getBlockState();
         if (!(blockState.getBlock() instanceof VoiceboxBlock))
             return;
@@ -52,6 +56,8 @@ public class VoiceboxRenderer extends SafeBlockEntityRenderer<VoiceboxBlockEntit
                 .translate(0, -offset / 16f, 0)
                 .light(light)
                 .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+
+ */
 
     }
 }

@@ -83,7 +83,7 @@ public class VoiceboxBlock extends Block implements IBE<VoiceboxBlockEntity>, IW
 
         return (FluidTankBlock.isTank(attachedState)
                 || attachedState.getBlock() instanceof WindchestBlock
-                || attachedState.getBlock() instanceof TracheaBlock); //Or whatever you want the windchest to be
+                ); //Or whatever you want the windchest to be
     }
 
     @Override
@@ -143,15 +143,13 @@ public class VoiceboxBlock extends Block implements IBE<VoiceboxBlockEntity>, IW
             BlockState blockState = pLevel.getBlockState(currentPos);
             float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
             SoundEvent growSound = ModSoundEvents.FLESH_BLOCK_PLACE.get();
-            SoundEvent hitSound = soundtype.getHitSound();
 
             if (AllBlocks.VOICEBOX_EXTENSION.has(blockState)) {
                 if (blockState.getValue(VoiceboxExtensionBlock.SHAPE) == SINGLE) {
                     pLevel.setBlock(currentPos, blockState.setValue(VoiceboxExtensionBlock.SHAPE, VoiceboxExtensionBlock.VoiceboxExtenderShape.DOUBLE), 3);
                     float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);
                     if (soundtype != null) {
-                        pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
-                        //pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
+                       pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
                         return;
                     }
                 }
@@ -166,7 +164,6 @@ public class VoiceboxBlock extends Block implements IBE<VoiceboxBlockEntity>, IW
                     .setValue(SIZE, size), 3);
             float pPitch = (float) Math.pow(2, -(i * 2 - 1) / 12.0);
             pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
-            pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
             return;
         }
     }

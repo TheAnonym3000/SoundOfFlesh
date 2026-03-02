@@ -51,7 +51,7 @@ public class AllBlocks {
     // Main whistle
     public static final BlockEntry<VoiceboxBlock> VOICEBOX =
             REGISTRATE.block("voicebox", VoiceboxBlock::new)
-                    .initialProperties(SharedProperties::copperMetal)
+                    .initialProperties(() -> ModBlocks.FLESH.get())
                     .properties(p -> p.mapColor(MapColor.GOLD))
                     .transform(pickaxeOnly())
                     .blockstate(new BlockStateGen.VoiceboxGenerator()::generate)
@@ -62,7 +62,7 @@ public class AllBlocks {
     // Extension block
     public static final BlockEntry<VoiceboxExtensionBlock> VOICEBOX_EXTENSION =
             REGISTRATE.block("voicebox_extension", VoiceboxExtensionBlock::new)
-                    .initialProperties(SharedProperties::copperMetal)
+                    .initialProperties(() -> ModBlocks.FLESH.get())
                     .properties(p -> p.mapColor(MapColor.GOLD)
                             .forceSolidOn())
                     .transform(pickaxeOnly())

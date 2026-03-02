@@ -1,0 +1,45 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "sound_of_flesh:block/flesh_base",
+		"particle": "sound_of_flesh:block/flesh_base"
+	},
+	"elements": [
+		{
+			"name": "fleshy_boney_bottom_bit",
+			"from": [0, 0, 13],
+			"to": [16, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 16]},
+			"faces": {
+				"north": {"uv": [0.5, 8.5, 7.5, 15.5], "rotation": 180, "texture": "#0"},
+				"east": {"uv": [8.5, 6.5, 15.5, 8], "rotation": 90, "texture": "#0"},
+				"south": {"uv": [8.5, 8.5, 15.5, 15.5], "texture": "#0"},
+				"west": {"uv": [8.5, 6.5, 15.5, 8], "rotation": 270, "texture": "#0"},
+				"up": {"uv": [8.5, 6.5, 15.5, 8], "texture": "#0"},
+				"down": {"uv": [8.5, 6.5, 15.5, 8], "rotation": 180, "texture": "#0"}
+			}
+		},
+		{
+			"from": [5, 2, 5],
+			"to": [11, 4, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 2, 11]},
+			"faces": {
+				"north": {"uv": [2, 2, 5, 3], "texture": "#0"},
+				"east": {"uv": [6, 6.5, 2, 7.5], "texture": "#0"},
+				"south": {"uv": [0, 0, 6, 2], "texture": "#0"},
+				"west": {"uv": [2, 6.5, 6, 7.5], "texture": "#0"},
+				"up": {"uv": [2, 4.5, 6, 7.5], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [2, 4.5, 6, 7.5], "rotation": 270, "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "base",
+			"origin": [0, 3, 0],
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
+}
