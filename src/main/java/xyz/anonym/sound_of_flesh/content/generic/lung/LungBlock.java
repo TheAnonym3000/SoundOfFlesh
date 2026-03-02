@@ -1,19 +1,31 @@
 package xyz.anonym.sound_of_flesh.content.generic.lung;
 
-import net.createmod.catnip.levelWrappers.WrappedLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import xyz.anonym.sound_of_flesh.SoundOfFlesh;
+import xyz.anonym.sound_of_flesh.content.generic.trachea.TracheaBlock;
+import xyz.anonym.sound_of_flesh.content.generic.trachea.TracheaBlockEntity;
+import xyz.anonym.sound_of_flesh.init.AllBlockEntities;
+import xyz.anonym.sound_of_flesh.init.AllShapes;
 
-public class LungBlock extends Block {
+public class LungBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     public LungBlock(Properties properties) {
@@ -22,6 +34,7 @@ public class LungBlock extends Block {
                 this.stateDefinition.any().setValue(FACING, Direction.NORTH)
         );
     }
+
 
     @Override
     public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
@@ -41,9 +54,22 @@ public class LungBlock extends Block {
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-                                boolean isMoving) {
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         worldIn.updateNeighborsAt(fromPos, this);
     }
 
+    @Override
+    public @NotNull RenderShape getRenderShape(BlockState state) {
+        return RenderShape.INVISIBLE;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return AllShapes.LUNG_SHAPE.get(state.getValue(FACING));
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return AllBlockEntities.LUNG_BLOCK_ENTITY.get().create(pos, state);
+    }
 }

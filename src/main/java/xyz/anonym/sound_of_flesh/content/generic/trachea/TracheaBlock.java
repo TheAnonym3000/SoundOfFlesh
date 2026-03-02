@@ -9,21 +9,25 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import xyz.anonym.sound_of_flesh.SoundOfFlesh;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlock;
-import xyz.anonym.sound_of_flesh.init.AllBlocks;
+import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlockEntity;
+import xyz.anonym.sound_of_flesh.init.AllBlockEntities;
+import xyz.anonym.sound_of_flesh.init.AllShapes;
 
-public class TracheaBlock extends Block implements IWrenchable {
+public class TracheaBlock extends Block implements IWrenchable, EntityBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -90,8 +94,16 @@ public class TracheaBlock extends Block implements IWrenchable {
         if (previouslyPowered != powered) {
             pLevel.setBlock(pPos, pState.setValue(POWERED, powered), 2);
             updateSlaves(pState, pLevel, pPos, powered);
+            if (powered) {
+                triggerAnimation(pLevel, pPos, "controller");
+            } else  {
+                stopAnimation(pLevel, pPos, "controller");
+            }
         }
-        if (pNeighborBlock instanceof EncasedFanBlock || pNeighborBlock instanceof LungBlock) updateMasterWindy(pLevel, pPos);
+        if (pNeighborBlock instanceof EncasedFanBlock || pNeighborBlock instanceof LungBlock) {
+            updateMasterWindy(pLevel, pPos);
+        }
+
     }
 
     @Override
@@ -119,8 +131,9 @@ public class TracheaBlock extends Block implements IWrenchable {
                 if (fanState.getValue(EncasedFanBlock.FACING) == d.getOpposite() && (fanBE.getSpeed()*d.getAxisDirection().getStep() < 0)) {
                     activeFans++;
                 }
-            } else if (level.getBlockState(masterPos.relative(d)).getBlock() == AllBlocks.LUNG_BLOCK.get()) {
-                if (level.getBlockState(masterPos.relative(d)).getValue(LungBlock.FACING) == d) {
+            } else if (level.getBlockEntity(masterPos.relative(d)) instanceof LungBlockEntity lungBE) {
+                BlockState lungState = lungBE.getBlockState();
+                if (lungState.getValue(LungBlock.FACING) == d) {
                     activeFans++;
                 }
             }
@@ -139,4 +152,46 @@ public class TracheaBlock extends Block implements IWrenchable {
         return pMirror == Mirror.NONE ? pState : pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
     }
 
+    @Override
+    public @NotNull RenderShape getRenderShape(BlockState state) {
+        return RenderShape.INVISIBLE;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return AllShapes.TRACHEA_SHAPE.get(state.getValue(FACING));
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return AllBlockEntities.TRACHEA_BLOCK_ENTITY.get().create(pos, state);
+    }
+
+    private void triggerAnimation(Level level, BlockPos pos, String controllerName) {
+        BlockEntity be = level.getBlockEntity(pos);
+        assert be != null;
+        Direction facing = be.getBlockState().getValue(FACING);
+        BlockEntity otherBe = level.getBlockEntity(pos.relative(facing.getOpposite()));
+
+        if (be instanceof TracheaBlockEntity tracheaBE) {
+            tracheaBE.triggerAnim(controllerName, "powered");
+        }
+        if (otherBe instanceof LungBlockEntity lungBE) {
+            lungBE.triggerAnim(controllerName, "breathe");
+        }
+    }
+
+    private void stopAnimation(Level level, BlockPos pos, String controllerName) {
+        BlockEntity be = level.getBlockEntity(pos);
+        assert be != null;
+        Direction facing = be.getBlockState().getValue(FACING);
+        BlockEntity otherBe = level.getBlockEntity(pos.relative(facing.getOpposite()));
+
+        if (be instanceof TracheaBlockEntity tracheaBE) {
+            tracheaBE.stopTriggeredAnimation(controllerName, "powered");
+        }
+        if (otherBe instanceof LungBlockEntity lungBE) {
+            lungBE.stopTriggeredAnimation(controllerName, "breathe");
+        }
+    }
 }
