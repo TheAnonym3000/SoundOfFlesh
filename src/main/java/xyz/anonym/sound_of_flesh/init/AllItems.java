@@ -17,7 +17,7 @@ public class AllItems {
     private static final CreateRegistrate REGISTRATE = SoundOfFlesh.registrate();
 
     static {
-        REGISTRATE.setCreativeTab(AllTabs.MAIN);
+        REGISTRATE.setCreativeTab(AllTabs.MAIN_TAB);
     }
 
     public static void register() {}
