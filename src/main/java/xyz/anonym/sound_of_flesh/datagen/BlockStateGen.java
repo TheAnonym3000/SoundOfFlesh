@@ -1,14 +1,13 @@
 package xyz.anonym.sound_of_flesh.datagen;
 
-import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
-
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-
 import net.minecraftforge.client.model.generators.ModelFile;
+import xyz.anonym.sound_of_flesh.SoundOfFlesh;
+import xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock;
 
 import static xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxBlock.SIZE;
 import static xyz.anonym.sound_of_flesh.content.pipes.voicebox.VoiceboxExtensionBlock.SHAPE;
@@ -37,7 +36,7 @@ public class BlockStateGen {
             if (state.getValue(VoiceboxBlock.POWERED)) {
                 return prov.models()
                         .withExistingParent(size + "_" + placement + "_powered", model.getLocation())
-                        .texture("0", "expanded_steam_whistles:block/copper_redstone_plate_powered");
+                        .texture("0", SoundOfFlesh.asResource("block/copper_redstone_plate_powered"));
             }
 
             return model;
