@@ -40,46 +40,6 @@
       "model": "sound_of_flesh:block/voicebox/voicebox_tiny_wall",
       "y": 270
     },
-    "facing=east,powered=true,size=huge,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_huge_floor_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=huge,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_huge_wall_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=large,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_large_floor_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=large,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_large_wall_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=medium,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_medium_floor_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=medium,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_medium_wall_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=small,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_small_floor_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=small,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_small_wall_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=tiny,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_tiny_floor_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=tiny,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_tiny_wall_powered",
-      "y": 270
-    },
     "facing=north,powered=false,size=huge,wall=false": {
       "model": "sound_of_flesh:block/voicebox/voicebox_huge_floor",
       "y": 180
@@ -120,46 +80,6 @@
       "model": "sound_of_flesh:block/voicebox/voicebox_tiny_wall",
       "y": 180
     },
-    "facing=north,powered=true,size=huge,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_huge_floor_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=huge,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_huge_wall_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=large,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_large_floor_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=large,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_large_wall_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=medium,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_medium_floor_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=medium,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_medium_wall_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=small,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_small_floor_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=small,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_small_wall_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=tiny,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_tiny_floor_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=tiny,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_tiny_wall_powered",
-      "y": 180
-    },
     "facing=south,powered=false,size=huge,wall=false": {
       "model": "sound_of_flesh:block/voicebox/voicebox_huge_floor"
     },
@@ -190,36 +110,7 @@
     "facing=south,powered=false,size=tiny,wall=true": {
       "model": "sound_of_flesh:block/voicebox/voicebox_tiny_wall"
     },
-    "facing=south,powered=true,size=huge,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_huge_floor_powered"
-    },
-    "facing=south,powered=true,size=huge,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_huge_wall_powered"
-    },
-    "facing=south,powered=true,size=large,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_large_floor_powered"
-    },
-    "facing=south,powered=true,size=large,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_large_wall_powered"
-    },
-    "facing=south,powered=true,size=medium,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_medium_floor_powered"
-    },
-    "facing=south,powered=true,size=medium,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_medium_wall_powered"
-    },
-    "facing=south,powered=true,size=small,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_small_floor_powered"
-    },
-    "facing=south,powered=true,size=small,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_small_wall_powered"
-    },
-    "facing=south,powered=true,size=tiny,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_tiny_floor_powered"
-    },
-    "facing=south,powered=true,size=tiny,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_tiny_wall_powered"
-    },
+
     "facing=west,powered=false,size=huge,wall=false": {
       "model": "sound_of_flesh:block/voicebox/voicebox_huge_floor",
       "y": 90
@@ -259,48 +150,6 @@
     "facing=west,powered=false,size=tiny,wall=true": {
       "model": "sound_of_flesh:block/voicebox/voicebox_tiny_wall",
       "y": 90
-    },
-    "facing=west,powered=true,size=huge,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_huge_floor_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=huge,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_huge_wall_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=large,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_large_floor_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=large,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_large_wall_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=medium,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_medium_floor_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=medium,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_medium_wall_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=small,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_small_floor_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=small,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_small_wall_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=tiny,wall=false": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_tiny_floor_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=tiny,wall=true": {
-      "model": "sound_of_flesh:block/voicebox/voicebox_tiny_wall_powered",
-      "y": 90
-    "": {
-      "model": "sound_of_flesh:block/voicebox"
     }
   }
 }

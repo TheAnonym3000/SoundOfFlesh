@@ -44,8 +44,6 @@
     },
     "shape=single,size=tiny": {
       "model": "sound_of_flesh:block/voicebox/extension/voicebox_tiny_single"
-    "": {
-      "model": "sound_of_flesh:block/voicebox_extension"
     }
   }
 }
