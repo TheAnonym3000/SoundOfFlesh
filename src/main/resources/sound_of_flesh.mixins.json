@@ -8,9 +8,7 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "LungFanUpdateTracheaMixin",
-    ,
-    "WindchestBlockMixin"
+    "LungFanUpdateTracheaMixin"
   ],
   "client": [
   ],

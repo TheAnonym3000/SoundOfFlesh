@@ -1,0 +1,83 @@
+package xyz.anonym.sound_of_flesh.content.generic.bronchi;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlockEntity;
+import xyz.anonym.sound_of_flesh.init.AllBlockEntities;
+import xyz.anonym.sound_of_flesh.init.AllShapes;
+
+public class BronchiBlock extends Block implements EntityBlock {
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final BooleanProperty WINDY = BooleanProperty.create("windy");
+
+    public BronchiBlock(Properties properties) {
+        super(properties);
+        this.registerDefaultState(
+                this.stateDefinition.any()
+                        .setValue(FACING, Direction.NORTH)
+                        .setValue(WINDY, false)
+        );
+    }
+
+
+    @Override
+    public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+        super.onPlace(state, worldIn, pos, oldState, isMoving);
+        worldIn.updateNeighborsAt(pos, this);
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(FACING);
+        builder.add(WINDY);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState()
+                .setValue(FACING, context.getHorizontalDirection().getOpposite());
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+        Direction direction = worldIn.getBlockState(fromPos).getValue(FACING);
+        if (worldIn.getBlockEntity(pos) instanceof LungBlockEntity lungBE) {
+            if (direction == lungBE.getBlockState().getValue(FACING) && pos == fromPos.relative(direction.getClockWise()) || pos == fromPos.relative(direction.getCounterClockWise())) {
+                state.setValue(WINDY, true);
+            }
+        } else {
+            state.setValue(WINDY, false);
+        }
+    }
+
+    @Override
+    public @NotNull RenderShape getRenderShape(BlockState state) {
+        return RenderShape.INVISIBLE;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return AllShapes.BRONCHI_SHAPE.get(state.getValue(FACING));
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return AllBlockEntities.BRONCHI_BLOCK_ENTITY.get().create(pos, state);
+    }
+}

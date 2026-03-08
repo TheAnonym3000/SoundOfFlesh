@@ -3,6 +3,10 @@ package xyz.anonym.sound_of_flesh.init;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import xyz.anonym.sound_of_flesh.SoundOfFlesh;
+import xyz.anonym.sound_of_flesh.content.generic.bronchi.BronchiBlockEntity;
+import xyz.anonym.sound_of_flesh.content.generic.bronchi.BronchiBlockEntityRenderer;
+import xyz.anonym.sound_of_flesh.content.generic.epiglottis.EpiglottisBlockEntity;
+import xyz.anonym.sound_of_flesh.content.generic.epiglottis.EpiglottisBlockEntityRenderer;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlockEntity;
 import xyz.anonym.sound_of_flesh.content.generic.lung.LungBlockEntityRenderer;
 import xyz.anonym.sound_of_flesh.content.generic.trachea.TracheaBlockEntity;
@@ -29,6 +33,18 @@ public class AllBlockEntities {
             .blockEntity("trachea", TracheaBlockEntity::new)
             .validBlocks(AllBlocks.TRACHEA)
             .renderer(() -> TracheaBlockEntityRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<BronchiBlockEntity> BRONCHI_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("bronchi", BronchiBlockEntity::new)
+            .validBlocks(AllBlocks.BRONCHI_BLOCK)
+            .renderer(() -> BronchiBlockEntityRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<EpiglottisBlockEntity> EPIGLOTTIS_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("epiglottis", EpiglottisBlockEntity::new)
+            .validBlocks(AllBlocks.EPIGLOTTIS_BLOCK)
+            .renderer(() -> EpiglottisBlockEntityRenderer::new)
             .register();
 
     public static void register() {

@@ -1,10 +1,5 @@
 package xyz.anonym.sound_of_flesh.init;
 
-import static com.simibubi.create.AllShapes.WHISTLE_BASE;
-import static net.minecraft.core.Direction.NORTH;
-import static net.minecraft.core.Direction.SOUTH;
-import static net.minecraft.core.Direction.UP;
-
 import net.createmod.catnip.math.VoxelShaper;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
@@ -13,6 +8,9 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.function.BiFunction;
+
+import static com.simibubi.create.AllShapes.WHISTLE_BASE;
+import static net.minecraft.core.Direction.*;
 
 
 public class AllShapes {
@@ -81,6 +79,9 @@ public class AllShapes {
     public static final VoxelShaper TRACHEA_SHAPE =
             shape(7, 8, 0, 9, 10, 16)
                     .forDirectional(NORTH);
+
+    public static final VoxelShaper BRONCHI_SHAPE =
+            shape(0, 0, 0, 16, 16, 16).forDirectional(NORTH);
 
 
     private static Builder shape(VoxelShape shape) {
